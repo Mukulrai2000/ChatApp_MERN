@@ -1,6 +1,8 @@
 import { Fragment } from "react";
 
 import { Dialog, Box, Typography, List, ListItem, styled } from "@mui/material";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 import { qrCodeImage } from "../../constants/data";
 
@@ -12,6 +14,30 @@ const Container = styled(Box)`
   padding: 56px 0 56px 56px;
 `;
 
+const QRCode = styled("img")({
+  height: 264,
+  width: 264,
+  margin: "50px 0 0 50px",
+});
+
+const Title = styled(Typography)`
+  font-size: 26px;
+  color: #525252;
+  font-weight: 300;
+  font-family: inherit;
+  margin-bottom: 25px;
+`;
+
+const StyledList = styled(List)`
+  & > li {
+    padding: 0;
+    margin-top: 15px;
+    font-size: 18px;
+    line-height: 28px;
+    color: #4a4a4a;
+  }
+`;
+
 const dialogStyle = {
   height: "96%",
   marginTop: "12%",
@@ -19,27 +45,45 @@ const dialogStyle = {
   maxWidth: "100%",
   maxHeight: "100%",
   boxShadow: "none",
-  overflow: "none",
+  overflow: "hidden",
 };
 
 const LoginDialog = () => {
+  const onLoginSuccess = (res) => {
+    const decoded = jwtDecode(res?.credential);
+    console.log("decoded", decoded);
+  };
+
+  const onLoginError = (res) => {
+    console.log("Login Error", res);
+  };
+
   return (
     <Fragment>
       <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
         <Component>
           <Container>
-            <Typography>Use ChattyApp on your computer</Typography>
-            <List>
+            <Title>Use ChattyApp on your computer</Title>
+            <StyledList>
               <ListItem>1. Open ChattyApp on your phone</ListItem>
               <ListItem>2. Tap Menu on Android, or Settings on iPhone</ListItem>
               <ListItem>3. Tap Linked devices and then Link a device</ListItem>
               <ListItem>
                 4. Point your phone at this screen to capture the QR code
               </ListItem>
-            </List>
+            </StyledList>
           </Container>
-          <Box>
-            <img src={qrCodeImage} alt="qr_code" />
+          <Box style={{ position: "relative" }}>
+            <QRCode src={qrCodeImage} alt="qr_code" />
+            <Box
+              style={{
+                position: "absolute",
+                top: "45%",
+                transform: "translateX(28%)",
+              }}
+            >
+              <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
+            </Box>
           </Box>
         </Component>
       </Dialog>
