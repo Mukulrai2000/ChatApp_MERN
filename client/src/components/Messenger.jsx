@@ -8,7 +8,7 @@ import ChatDialog from "./chat/ChatDialog";
 
 const Component = styled(Box)`
   height: 100vh;
-  background-color: #FAF9F6;
+  background-color: #ededed;
 `;
 
 const Header = styled(AppBar)`
