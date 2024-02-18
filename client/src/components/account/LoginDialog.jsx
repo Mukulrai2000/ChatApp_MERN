@@ -60,7 +60,7 @@ const LoginDialog = () => {
 
   return (
     <Fragment>
-      <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
+      <Dialog open={true} PaperProps={{ sx: dialogStyle }} hideBackdrop={true}>
         <Component>
           <Container>
             <Title>Use ChattyApp on your computer</Title>

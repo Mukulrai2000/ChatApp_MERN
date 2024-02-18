@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+import AccountProvider from "./context/AccountProvider";
 import Messenger from "./components/Messenger";
 
 const App = () => {
@@ -10,7 +11,9 @@ const App = () => {
   return (
     <Fragment>
       <GoogleOAuthProvider clientId={clientId}>
-        <Messenger />
+        <AccountProvider>
+          <Messenger />
+        </AccountProvider>
       </GoogleOAuthProvider>
     </Fragment>
   );

@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { AppBar, Toolbar, styled, Box } from "@mui/material";
 
 import LoginDialog from "./account/LoginDialog";
+import ChatDialog from "./chat/ChatDialog";
 
 const Component = styled(Box)`
 height:100vh;
