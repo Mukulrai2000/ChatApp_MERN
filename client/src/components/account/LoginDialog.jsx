@@ -1,9 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 
 import { Dialog, Box, Typography, List, ListItem, styled } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
+import { AccountContext } from "../../context/AccountProvider";
 import { qrCodeImage } from "../../constants/data";
 
 const Component = styled(Box)`
@@ -44,14 +45,15 @@ const dialogStyle = {
   width: "65%",
   maxWidth: "100%",
   maxHeight: "100%",
-  boxShadow: "none",
   overflow: "hidden",
 };
 
 const LoginDialog = () => {
+  const { setAccount } = useContext(AccountContext);
+
   const onLoginSuccess = (res) => {
     const decoded = jwtDecode(res?.credential);
-    console.log("decoded", decoded);
+    setAccount(decoded);
   };
 
   const onLoginError = (res) => {
