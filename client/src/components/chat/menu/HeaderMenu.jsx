@@ -26,6 +26,7 @@ const HeaderMenu = () => {
       <Menu
         anchorEl={open}
         keepMounted
+        disableAutoFocusItem
         getContentAnchorE1={null}
         open={open}
         onClose={handleClose}
