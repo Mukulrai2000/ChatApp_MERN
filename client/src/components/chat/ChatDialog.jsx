@@ -1,9 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 
 import { Dialog, Box, styled } from "@mui/material";
 
+import { AccountContext } from "../../context/AccountProvider";
 import Menu from "./menu/Menu";
-import EmptyChat from "./empChat/EmptyChat";
+import EmptyChat from "./chat/EmptyChat";
+import ChatBox from "./chat/ChatBox";
 
 const Component = styled(Box)`
   display: flex;
@@ -32,6 +34,7 @@ const dialogStyle = {
 };
 
 const ChatDialog = () => {
+  const { person } = useContext(AccountContext);
   return (
     <Fragment>
       <Dialog
@@ -45,7 +48,7 @@ const ChatDialog = () => {
             <Menu />
           </LeftComponent>
           <RightComponent>
-            <EmptyChat />
+            {Object.keys(person)?.length ? <ChatBox /> : <EmptyChat />}
           </RightComponent>
         </Component>
       </Dialog>

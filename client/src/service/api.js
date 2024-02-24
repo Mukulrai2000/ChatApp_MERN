@@ -18,3 +18,10 @@ export const getUsers = async () => {
     console.log("Error while calling getUsers API", error?.message);
   }
 };
+
+export const setConversation = async () => {
+  try {
+  } catch (error) {
+    console.log("Error while calling setConversation API", error?.message);
+  }
+};
