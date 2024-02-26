@@ -1,7 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useContext, useState } from "react";
 
 import { Box, styled } from "@mui/material";
 
+import { AccountContext } from "../../../context/AccountProvider";
 import Footer from "./Footer";
 
 const Wrapper = styled(Box)`
@@ -14,12 +15,28 @@ const Component = styled(Box)`
   overflow-y: scroll;
 `;
 
-const Messages = () => {
+const Messages = ({ person, conversation }) => {
+  const { account } = useContext(AccountContext);
+  const [value, setValue] = useState("");
+
+  const sendText = async (e) => {
+    const code = e.keyCode || e.which;
+    if (code === 13) {
+      let message = {
+        senderId: account?.sub,
+        receiverId: person?.sub,
+        conversationId: conversation?._id,
+        type: "text",
+        text: value,
+      };
+    }
+  };
+
   return (
     <Fragment>
       <Wrapper>
         <Component>F</Component>
-        <Footer />
+        <Footer sendText={sendText} setValue={setValue} />
       </Wrapper>
     </Fragment>
   );
