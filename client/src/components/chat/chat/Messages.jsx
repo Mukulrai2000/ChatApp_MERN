@@ -18,6 +18,8 @@ const Component = styled(Box)`
 `;
 
 const Messages = ({ person, conversation }) => {
+  console.log("person" , person)
+  console.log("conversation" , conversation)
   const { account } = useContext(AccountContext);
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
