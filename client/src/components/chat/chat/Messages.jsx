@@ -17,12 +17,15 @@ const Component = styled(Box)`
   overflow-y: scroll;
 `;
 
+const Container = styled(Box)`
+  padding: 1px 80px;
+`;
+
 const Messages = ({ person, conversation }) => {
-  console.log("person" , person)
-  console.log("conversation" , conversation)
   const { account } = useContext(AccountContext);
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
+  const [newMessageFlag, setNewMessageFlag] = useState(false);
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
@@ -37,17 +40,17 @@ const Messages = ({ person, conversation }) => {
       await newMessage(message);
 
       setValue("");
+      setNewMessageFlag(prev => !prev);
     }
   };
 
   useEffect(() => {
     const getMessageDetails = async () => {
       let data = await getMessages(conversation._id);
-      console.log("data", data);
       setMessages(data);
     };
     conversation._id && getMessageDetails();
-  }, [person._id, conversation._id]);
+  }, [person._id, conversation._id, newMessageFlag]);
 
   return (
     <Fragment>
@@ -55,7 +58,11 @@ const Messages = ({ person, conversation }) => {
         <Component>
           {messages &&
             messages?.map((message) => {
-              return <Message message={message}/>;
+              return (
+                <Container>
+                  <Message message={message} />
+                </Container>
+              );
             })}
         </Component>
         <Footer sendText={sendText} value={value} setValue={setValue} />
