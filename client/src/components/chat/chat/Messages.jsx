@@ -26,6 +26,7 @@ const Messages = ({ person, conversation }) => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessageFlag, setNewMessageFlag] = useState(false);
+  const [file, setFile] = useState();
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
@@ -40,7 +41,7 @@ const Messages = ({ person, conversation }) => {
       await newMessage(message);
 
       setValue("");
-      setNewMessageFlag(prev => !prev);
+      setNewMessageFlag((prev) => !prev);
     }
   };
 
@@ -65,7 +66,13 @@ const Messages = ({ person, conversation }) => {
               );
             })}
         </Component>
-        <Footer sendText={sendText} value={value} setValue={setValue} />
+        <Footer
+          sendText={sendText}
+          value={value}
+          setValue={setValue}
+          file={file}
+          setFile={setFile}
+        />
       </Wrapper>
     </Fragment>
   );
