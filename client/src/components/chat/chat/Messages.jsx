@@ -45,6 +45,7 @@ const Messages = ({ person, conversation }) => {
           text: value,
         };
         setValue("");
+        socket?.current?.emit("sendMessage", message);
       } else {
         message = {
           senderId: account?.sub,
@@ -56,7 +57,8 @@ const Messages = ({ person, conversation }) => {
       }
     }
 
-    socket.current.emit("sendMessage", message);
+    console.log("message", message)
+    // socket?.current?.emit("sendMessage", message);
 
     await newMessage(message);
 
